@@ -27,6 +27,7 @@ namespace Tarea2.Controllers
         public IActionResult Index(ConsultarRNCModel c_rnc, string buscar)
         {
             if (buscar == "Buscar"){
+                c_rnc.BotonPresionado = true;
                 string rnc = c_rnc.RNC;
 
                 string url = "http://adamix.net/gastosrd/api.php?act=GetContribuyentes&rnc="+rnc;

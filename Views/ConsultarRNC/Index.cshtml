@@ -30,15 +30,8 @@
                     </div>
                 }
             </div>
-            <div class="col-9">
-                @while (!Model.Success)
-                {
-                    <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                    </div>
-                }
-                    
-                @if(Model.Success){
+            <div class="col-9">                    
+                @if(Model.BotonPresionado && Model.Success){
                     <div class="card">
                         <div class="card-header">
                             Datos del RNC: @Model.RNC
@@ -72,8 +65,10 @@
                             </blockquote>
                         </div>
                     </div>
+                }else if(Model.BotonPresionado && !Model.Success){
+                    <h1 class="text-danger text-center">¡RNC no encontrado!</h1>
                 }else{
-                    <h1 class="text-danger  text-center">¡RNC no encontrado!</h1>
+                    <h1 class="text-danger text-center">Ingrese un RNC para comenzar la consulta.</h1>
                 }
             </div>
         </div>

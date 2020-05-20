@@ -1,0 +1,84 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model Tarea2.Models.ConsultarRNCModel
+@{
+    ViewData["Title"] = "Consulta de RNC";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="row">
+            <div class="col-3">
+                @using (Html.BeginForm()){
+                    <div class="card">
+                        <div class="card-header">
+                            Consultar RNC
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <div class="form-group">
+                                    <input type="text" name="rnc" class="form-control" value="@Model.RNC" placeholder="RNC"/>
+                                </div>
+                                <input type="submit" value="Buscar" name="Buscar" class="btn btn-primary btn-block">
+                            </blockquote>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-9">
+                @while (!Model.Success)
+                {
+                    <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                    </div>
+                }
+                    
+                @if(Model.Success){
+                    <div class="card">
+                        <div class="card-header">
+                            Datos del RNC: @Model.RNC
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                        <th scope="row">Nombre</th>
+                                        <td>@Model.Nombre</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">Nombre Comercial</th>
+                                        <td>@Model.NComercial</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">Categoria</th>
+                                        <td>@Model.Categoria</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">Regimen</th>
+                                        <td>@Model.Regimen</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">Estatus</th>
+                                        <td>@Model.Estatus</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </blockquote>
+                        </div>
+                    </div>
+                }else{
+                    <h1 class="text-danger  text-center">¡RNC no encontrado!</h1>
+                }
+            </div>
+        </div>
+    }else{
+        <h3 class="text-danger  text-center">¡Debe iniciar sesión para poder realizar una consulta!</h3>
+    }
+</div>
+
